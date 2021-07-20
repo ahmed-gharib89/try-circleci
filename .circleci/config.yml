@@ -67,7 +67,7 @@ jobs:
             export ANSIBLE_HOST_KEY_CHECKING=False
             ansible-playbook -i ~/inventory playbook.yml --force-handlers
       - run: return 1
-      - destroy_environment
+      - destroy_environment:
           when: on_fail
 
 workflows:
