@@ -52,3 +52,9 @@ workflows:
   my_workflow:
     jobs:
       - create_infrastructure
+      - get_instance_ip:
+          requires:
+            - create_infrastructure
+      - configure_infrastructure:
+          requires:
+            - get_instance_ip
