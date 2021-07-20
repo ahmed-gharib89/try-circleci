@@ -86,3 +86,6 @@ workflows:
       - configure_infrastructure:
           requires:
             - get_instance_ip
+      - destroy_infrastructure:
+          requires:
+            - configure_infrastructure
