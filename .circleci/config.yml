@@ -11,7 +11,7 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file template.yml \
-              --stack-name my-stack2
+              --stack-name my-stack
 
   get_instance_ip:
     docker:
@@ -52,7 +52,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            ansible-playbook -i ~/inventory playbook.yml
+            ansible-playbook -i ~/inventory playbook.yml --become
 
 workflows:
   my_workflow:
