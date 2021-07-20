@@ -66,6 +66,12 @@ jobs:
           command: |
             export ANSIBLE_HOST_KEY_CHECKING=False
             ansible-playbook -i ~/inventory playbook.yml --force-handlers
+            
+  destroy_infrastructure:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
       - run: return 1
       - destroy_environment
         when: on_fail
