@@ -11,7 +11,7 @@ jobs:
       - run: 
           name: "echo Hello, I`m Ahmed Gharib! to a file"
           command: |
-            echo "Hello, I'm ${name}!" > hello.txt
+            echo "Hello, I'm ${name}!" > ~/hello.txt
       - persist_to_workspace:
           root: ~/
           paths:
