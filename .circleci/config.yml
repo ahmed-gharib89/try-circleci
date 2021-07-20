@@ -24,16 +24,31 @@ jobs:
           root: ~/
           paths:
             - hello.txt
+
   print_output_file:
     <<: *defaults
     steps:
       - attach_workspace:
           at: ~/
       - run: cat ~/hello.txt
+
   my_job:
     <<: *defaults
     steps:
       - print_pipeline_id
+  
+  bad_job:
+    <<: *defaults
+    steps:
+      - run: return 1
+
+  on_fail_job:
+    <<: *defaults
+    steps:
+      - run: echo "Hello Error!"
+      when: on_fail
+
+
 workflows:
   # Name the workflow "gharib"
   gharib:
