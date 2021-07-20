@@ -41,12 +41,10 @@ jobs:
     <<: *defaults
     steps:
       - run: return 1
-
-  on_fail_job:
-    <<: *defaults
-    steps:
-      - run: echo "Hello Error!"
-        when: on_fail
+      - run:
+          name: on error
+          command: echo "Hello Error!"
+          when: on_fail
 
 
 workflows:
@@ -60,6 +58,3 @@ workflows:
             - save_hello_world_output
       - my_job
       - bad_job
-      - on_fail_job:
-          requires:
-            - bad_job
