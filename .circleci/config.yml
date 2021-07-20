@@ -41,7 +41,6 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints: ["45:44:e9:b4:35:84:f7:3f:e3:f9:5f:e5:a0:95:2a:b1"]
-      - run: ssh-keyscan $(cat ~/inventory) >> ~/.ssh/known_hosts
       - run:
           name: check the inventory file content
           command: |
