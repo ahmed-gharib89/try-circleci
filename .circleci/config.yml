@@ -3,34 +3,32 @@ version: 2.1
 # Use a package of configuration called an orb.
 # Orchestrate or schedule a set of jobs
 jobs:
-  print_my_name:
+  save_hello_world_output:
     docker:
       - image: alpine:latest
     steps:
       - checkout
       - run: 
-          name: "print my name"
+          name: "echo Hello, I`m Ahmed Gharib! to a file"
           command: |
-            echo "Hello, I'm ${name}"
-  print_hello:
+            echo "Hello, I'm ${name}!" > hello.txt
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - hello.txt
+  print_output_file:
     docker:
       - image: alpine:latest
     steps:
-      - run: echo hello
-  print_world:
-    docker:
-      - image: alpine:latest
-    steps:
-      - run: echo world
+      - attach_workspace:
+          at: ~/
+      - run: cat ~/hello.txt
 workflows:
   # Name the workflow "gharib"
   gharib:
     # Run the welcome/run job in its own container
     jobs:
-      - print_my_name
-      - print_hello:
+      - save_hello_world_output
+      - print_output_file:
           requires:
-            - print_my_name
-      - print_world:
-          requires:
-            - print_hello
+            - save_hello_world_output
