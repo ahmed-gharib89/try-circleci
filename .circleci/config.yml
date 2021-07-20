@@ -14,21 +14,23 @@ jobs:
             echo "Hello, I'm ${name}"
   print_hello:
     docker:
-      - image: circleci/node:13.8.0
+      - image: alpine:latest
     steps:
       - run: echo hello
   print_world:
     docker:
-      - image: circleci/node:13.8.0
+      - image: alpine:latest
     steps:
       - run: echo world
 workflows:
-  # Name the workflow "welcome"
-  welcome:
+  # Name the workflow "gharib"
+  gharib:
     # Run the welcome/run job in its own container
     jobs:
       - print_my_name
-      - print_hello
+      - print_hello:
+          requires:
+            - print_my_name
       - print_world:
           requires:
             - print_hello
