@@ -9,9 +9,9 @@ jobs:
     steps:
       - checkout
       - run: 
-        name: "print my name"
-        comand: 
-          echo "Hello, I'm ${name}"
+          name: "print my name"
+          comand: 
+            echo "Hello, I'm ${name}"
   print_hello:
     docker:
       - image: circleci/node:13.8.0
