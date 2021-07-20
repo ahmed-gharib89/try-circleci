@@ -11,7 +11,7 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file template.yml \
-              --stack-name my-stack
+              --stack-name final-stack
 
   get_instance_ip:
     docker:
@@ -21,7 +21,7 @@ jobs:
       - run:
           name: Get instance IP
           command: |
-            echo "[all]" > inventory
+            echo "[all]" > ~/inventory
             aws ec2 describe-instances \
               --query "Reservations[].Instances[].PublicIpAddress" \
               --output text >> ~/inventory
