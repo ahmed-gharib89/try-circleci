@@ -10,7 +10,7 @@ jobs:
       - checkout
       - run: 
           name: "print my name"
-          comand: 
+          comand: |
             echo "Hello, I'm ${name}"
   print_hello:
     docker:
