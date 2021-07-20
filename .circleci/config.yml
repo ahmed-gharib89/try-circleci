@@ -12,6 +12,42 @@ jobs:
             aws cloudformation deploy \
               --template-file template.yml \
               --stack-name my-stack2
+
+  get_instance_ip:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Get instance IP
+          command: |
+            echo "[all]" > inventory
+            aws ec2 describe-instances \
+              --query "Reservations[].Instances[].PublicIpAddress" \
+              --output text >> ~/inventory
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - inventory
+
+  configure_infrastructure:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - attach_workspace:
+          at: ~/
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["45:44:e9:b4:35:84:f7:3f:e3:f9:5f:e5:a0:95:2a:b1"]
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible # install the dependencies needed for your playbook
+      - run:
+          name: Configure server
+          command: |
+            ansible-playbook -i ~/inventory playbook.yml
+
 workflows:
   my_workflow:
     jobs:
