@@ -11,7 +11,7 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file template.yml \
-              --stack-name final-stack
+              --stack-name my-stack
 
   get_instance_ip:
     docker:
@@ -49,6 +49,10 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible # install the dependencies needed for your playbook
+      - run:
+          name: disbale host key checking
+          command: |
+            export ANSIBLE_HOST_KEY_CHECKING=False
       - run:
           name: Configure server
           command: |
