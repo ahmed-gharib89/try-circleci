@@ -56,7 +56,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            ansible-playbook -i ~/inventory playbook.yml -y
+            ansible-playbook -i ~/inventory playbook.yml --force-handlers
 
 workflows:
   my_workflow:
