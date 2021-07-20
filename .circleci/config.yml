@@ -26,6 +26,7 @@ jobs:
               --query "Reservations[].Instances[].PublicIpAddress" \
               --output text >> ~/inventory
             yum install -y tar
+            yum install -y gzip
       - persist_to_workspace:
           root: ~/
           paths:
